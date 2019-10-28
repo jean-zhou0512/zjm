@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的生命周期</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    class Life extends React.Component{
+        constructor(props){
+            super(props)
+            this.state={
+                opacity:1
+            }
+            this.destroyComponent=this.destroyComponent.bind(this)
+        }
+
+
+       // 设置定时器，改变opacity的值；定时器写在componentDidMount() 组件挂载方法内
+        componentDidMount() {
+             this.IntervalId=setInterval(function () {
+                console.log("定时器启用了...")
+                let {opacity} = this.state
+                opacity -= 0.1
+                if (opacity <= 0) {
+                    opacity = 1
+                }
+                //    更新state
+                this.setState({opacity})
+            }.bind(this), 200)}
+
+        destroyComponent(){
+            ReactDOM.unmountComponentAtNode(document.getElementById('example'))}
+
+         /*关闭定时器，在componentWillUnmount组件卸载方法进行*/
+        componentWillUnmount(){
+            //清除定时器
+            clearInterval(this.IntervalId)}
+
+       render(){
+           console.log("render()")
+            const {opacity}=this.state
+           return (
+               <div>
+                   <h2 style={{opacity}}>React太难了！</h2>
+                   <button onClick={this.destroyComponent}>不活了</button>
+               </div>
+           )
+       }
+    }
+    ReactDOM.render(<Life/>,document.getElementById('example'))
+</script>
+</html>

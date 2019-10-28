@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Axios</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/axios.js"></script>
+</head>
+<body>
+<div id="search"></div>
+</body>
+
+<script type="text/babel">
+
+
+
+    class AxiosReact extends React.Component{
+        state={
+            resultName:'',
+            resultUrl:'',
+        }
+
+        componentDidMount(){
+            //使用axios请求数据
+           const url=`https://api.github.com/search/repositories?q=re&sort=starts`;
+            axios.get(url).then(response => {
+                const result=response.data
+                const {name,html_url}=result.items[0]
+                this.setState({resultName:name,resultUrl:html_url})
+            })
+        }
+
+        render(){
+            const {resultName,resultUrl}=this.state
+
+                if(!resultName){
+                    return <h2>Location...</h2>
+                }else {
+                    return <h2>Most Popular React is <a href={resultUrl}>{resultName} </a></h2>
+                }
+        }
+    }
+
+    ReactDOM.render(<AxiosReact/>,document.getElementById('search'));
+
+</script>
+</html>

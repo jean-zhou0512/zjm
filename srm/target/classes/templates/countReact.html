@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>次数</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+
+</head>
+<body>
+<div id="count"></div>
+</body>
+<script type="text/babel">
+    class ChangeState extends React.Component{
+        constructor(props){
+            super(props)
+            this.state={
+                count:0,
+            }
+        }
+
+        handleClick =(event)=>{
+            this.setState({
+                count:this.state.count+1
+            });
+            console.info(this.state.count);
+            console.log(this);
+
+        }
+
+        render(){
+            return(
+                <div>
+                    <div>点击次数（显示的是最新的值）{this.state.count}</div>
+                <div>
+                    <button onClick={this.handleClick}>次数</button>
+                </div>
+                </div>
+            );
+        }
+    }
+   ReactDOM.render(<ChangeState/>,document.getElementById("count"));
+</script>
+</html>

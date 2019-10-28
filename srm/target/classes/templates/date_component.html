@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示时间</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    class ShowDate extends React.Component{
+        constructor(props){
+            super(props)
+            this.state={
+                date:new Date()
+            }
+        }
+
+        componentDidMount(){
+            setInterval(()=>this.setState({
+                date:new Date()
+            }),1000)
+        }
+
+        render(){
+            const {date}=this.state;
+           return(
+           <div>
+                <input type="text"/>&nbsp;&nbsp;时间:{date.toLocaleTimeString()}
+            </div>
+           )
+        }
+    }
+
+    ReactDOM.render(<ShowDate/>,document.getElementById('example'))
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件点击事件</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+</head>
+<body>
+<div id="test04"></div>
+
+</body>
+<script type="text/babel">
+    class ClickComponent extends React.Component{
+        constructor(props){
+            super(props)
+            //设置状态
+            this.state={isRight:true}
+            //将handleClick的this对象绑定为容器的this对象
+            this.handleClick=this.handleClick.bind(this);
+        }
+
+        handleClick(){
+            console.log(this)
+            //读取并修改状态
+            var isRight=!this.state.isRight
+            //更新状态
+            this.setState({isRight});
+        }
+
+        render(){
+            //读取状态
+            var {isRight}=this.state;
+            return <h2 onClick={this.handleClick}>{isRight?'你是对的':'我是对的'}</h2>
+        }
+
+
+
+    }
+    ReactDOM.render(<ClickComponent/>,document.getElementById('test04'));
+
+</script>
+</html>

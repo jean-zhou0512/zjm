@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Axios</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/axios.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+</head>
+<body>
+<div id="search"></div>
+</body>
+
+<script type="text/babel">
+
+    class ItemDate extends React.Component{
+
+        static propTypes={
+            department:PropTypes.object.isRequired
+        }
+        render(){
+            const {department}=this.props
+            return (
+                <li>id:{department.id}  &nbsp;&nbsp; 姓名:{department.departmentName}</li>
+            )
+        }
+    }
+
+    class AxiosReact extends React.Component{
+        state={
+            departments:[],
+        }
+
+        componentDidMount(){
+            //使用axios请求数据
+            const url=`http://localhost:8081/getdepAllList`;
+            axios.get(url).then(response => {
+                const departments=response.data
+                this.setState({departments:departments})
+                /* const {id,departmentName}=result.items[0]
+                 this.setState({resultName:name,resultUrl:html_url})*/
+            }).catch((error)=>{
+                alert(error.message)
+            })
+          //使用fetch请求数据
+           /* const  url=`http://localhost:8081/getdepAllList`;
+            fetch(url).then(Response=>{
+                return Response.json()
+            }).then(data =>{
+                const departments=data
+                this.setState({departments:departments})
+            })*/
+        }
+
+        render(){
+            const {departments}=this.state
+             const display=departments.length>0?'none':'block'
+            return (
+
+                <div>
+                    <h2 style={{display}}>`暂无数据`</h2>
+                    <ul>
+                        {departments.map((data,index)=><ItemDate department={data} key={index}/>)}
+                    </ul>
+                </div>
+            )
+                /*if({departments}==null){
+                        return ( <ul>  `暂无数据`</ul>)
+                }else{
+                     return (
+                    <ul>
+                    departments.map((data,index)=><ItemDate department={data} key={index}/>
+                    </ul>
+                    );
+                }*/
+
+            /*  const {resultName,resultUrl}=this.state
+
+                  if(!resultName){
+                      return <h2>Location...</h2>
+                  }else {
+                      return <h2>Most Popular React is <a href={resultUrl}>{resultName} </a></h2>
+                  }*/
+        }
+    }
+
+    ReactDOM.render(<AxiosReact/>,document.getElementById('search'));
+
+</script>
+</html>
