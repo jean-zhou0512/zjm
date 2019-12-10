@@ -1,0 +1,5 @@
+com\cn\entity\Items.class
+com\cn\module\ItemsExample$Criterion.class
+com\cn\module\ItemsExample$Criteria.class
+com\cn\module\ItemsExample$GeneratedCriteria.class
+com\cn\module\ItemsExample.class
