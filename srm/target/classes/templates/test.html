@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <!--    <script type="text/javascript" src="/react/prop-types.js"></script>-->
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    class UserAdd extends React.Component{
+        constructor(){
+            super();
+        }
+        handleSubmit=()=>{
+            let name=this.name.value;
+            console.log(name);
+        }
+        render(){
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    <div className="from-group">
+                        <label htmlFor="name">姓名</label>
+                        <input type="text" className="form-control" ref={ref=>this.name=ref}/>
+                    </div>
+                    <div className="from-group">
+                        <input type="submit" className="btn btn-primary"/>
+                    </div>
+                </form>
+            )
+        }
+
+    }
+    ReactDOM.render(<UserAdd/>,document.getElementById('example'))
+
+</script>
+</html>

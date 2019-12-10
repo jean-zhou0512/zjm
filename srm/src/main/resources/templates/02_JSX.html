@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02_JSX</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+</body>
+    <!--原始创建React的语法-->
+    <script type="text/javascript">
+        var msg='I Love You!';
+        var mid='Atguigu';
+    //    不用JSX语法
+    //    1.创建虚拟DOM
+    //    第一个参数是标签名，第二个参数是属性值，第三个参数是内容
+        var vDOM=React.createElement('h2',{'id':mid.toLowerCase()},msg.toUpperCase());
+    //    2.渲染虚拟DOM
+        ReactDOM.render(vDOM,document.getElementById('test1'));
+    </script>
+    <!--使用JSX语法创建React-->
+    <script type="text/babel">
+        var msg='I Love You!';
+        var mid='Atguigu';
+    //    1.创建虚拟DOM
+        var vDOM=<h3 id={mid.toUpperCase()}>{msg.toLowerCase()}</h3>
+    //    2.渲染虚拟DOM
+        ReactDOM.render(vDOM,document.getElementById('test2'));
+        //另一种写法
+        ReactDOM.render(
+            <h4 id={mid}>{msg}</h4>,
+            document.getElementById('test3')
+        );
+    </script>
+
+</html>

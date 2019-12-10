@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>迭代数组</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="react03">迭代数组</div>
+    <div id="react04"></div>
+</body>
+    <script type="text/babel">
+        var names=['java','c++','python','php','c#']
+//   1.创建虚拟DOM
+        var VDOM=(
+            <ul>
+            {
+                names.map((name,index) => <li key={index}>{name}</li>)
+            }
+        </ul>
+        )
+
+//   2.渲染虚拟DOM
+        ReactDOM.render(VDOM,document.getElementById('react03'));
+
+//        另一种写法
+        ReactDOM.render(
+            (<ul>
+                {
+                    names.map((name,index) => <li key="index">{name}</li>)
+                }
+            </ul>),
+            document.getElementById('react04')
+        )
+</script>
+</html>

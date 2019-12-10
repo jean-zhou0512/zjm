@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单组件</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    class LoginForm extends React.Component{
+        constructor(props){
+            super(props)
+            this.Login=this.Login.bind(this)
+            this.password=this.password.bind(this)
+            this.state={
+                pwd:'',
+            }
+        }
+
+        Login(event){
+            const username=this.username.value
+            const {pwd}=this.state
+            alert(`你要登录的账号是${username},密码为${pwd}`)
+
+            //阻止默认事件发生
+            event.preventDefault();
+
+        }
+
+        password(event){
+            const  pwd=event.target.value
+            this.setState({pwd})
+        }
+
+        render (){
+             return (
+                 <form onSubmit={this.Login}>
+                     用户名<input type="text" ref={input=> this.username=input}/><br/>
+                     密码<input type="password" value={this.state.pwd} onChange={this.password}/><br/>
+                     <input type="submit" value="登录"/>
+                 </form>
+             )
+        }
+    }
+    ReactDOM.render(<LoginForm/>,document.getElementById('example'))
+</script>
+</html>

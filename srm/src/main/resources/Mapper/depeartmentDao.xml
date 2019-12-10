@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.srm.dao.depeartmentDao">
+     <select id="getList" resultType="com.example.srm.pojo.Department">
+          select * from department d
+          <where>
+               <if test="cursor!='' and cursor!=null">
+                    d.id <![CDATA[ > ]]> #{cursor}
+               </if>
+          </where>
+          order by d.id
+          <if test="pageSize!='' and pageSize!=null">
+               limit #{pageSize,jdbcType=INTEGER}
+          </if>
+     </select>
+
+     <insert id="addDepeartment" parameterType="com.example.srm.pojo.Department" useGeneratedKeys="true" keyProperty="id">
+        insert into department(department_name,creat_date) value(#{departmentName},#{creatDate})
+     </insert>
+
+     <select id="getDepById" parameterType="java.lang.Integer" resultType="com.example.srm.pojo.Department">
+          select * from department where id=#{id,jdbcType=INTEGER}
+     </select>
+
+</mapper>

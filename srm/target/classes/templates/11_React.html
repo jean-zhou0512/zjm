@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>交互数据</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    class App extends React.Component{
+        constructor(props){
+            super(props)
+            this.state={
+               todos:["java","c++","python"]
+            }
+            this.AddTodo=this.AddTodo.bind(this)
+        }
+
+        AddTodo(todo){
+            const {todos}=this.state
+            todos.unshift(todo)
+            //更新状态
+            this.setState({todos})
+        }
+
+
+        render(){
+            const {todos}=this.state
+            return (
+                <div>
+                <h2>联合组件</h2>
+                <ToAdd count={todos.length} AddTodo={this.AddTodo}/>
+                <ToList todos={todos}/>
+                </div>
+            )
+        }
+    }
+
+    class ToAdd extends React.Component{
+
+        constructor(props){
+            super(props)
+            this.addTodos=this.addTodos.bind(this);
+        }
+
+        addTodos(){
+        //    1.获取父类方法
+                const todo=this.todos.value.trim()
+        //    2.验证数据合法性
+                if(!todo){
+                    return;
+                }
+        //    3.添加，调用主类的方法
+                this.props.AddTodo(todo)
+        //    4.清除
+            this.todos.value=''
+        }
+
+            render(){
+                const {count}=this.props
+                return(
+                    <div>
+                        <input type="text" ref={(input)=>this.todos=input}></input>
+                        <button onClick={this.addTodos}>submit #{count+1}</button>
+                    </div>
+                )
+            }
+    }
+    ToAdd.propTypes={
+        count:PropTypes.number.isRequired,
+        AddTodo:PropTypes.func.isRequired,
+    }
+
+    class ToList extends React.Component{
+           render(){
+               const  {todos}=this.props
+               return (
+                   <div>
+                       <ul>
+                           {todos.map((todo,index) => <li key={index}>{todo}</li>)}
+                       </ul>
+                   </div>
+               )
+           }
+    }
+    ToList.propTypes={
+        todos:PropTypes.array.isRequired
+    }
+
+    ReactDOM.render(<App/>,document.getElementById('example'))
+</script>
+</html>

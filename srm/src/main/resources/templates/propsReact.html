@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>props</title>
+    <script type="text/javascript" src="/react/react.development.js"></script>
+    <script type="text/javascript" src="/react/react-dom.development.js"></script>
+    <script type="text/javascript" src="/react/prop-types.js"></script>
+    <script type="text/javascript" src="/react/babel.min.js"></script>
+</head>
+<body>
+<div id="example1"></div>
+<div id="example2"></div>
+
+</body>
+<script type="text/babel">
+    /**
+     * 需求：自定义用来显示一个人员信息的组件，效果如页面。 说明
+     * 1）如果性别没有指定，默认为男
+     * 2）如果年龄没有指定，默认为18
+     * 3）姓名为必填
+     */
+//    创建组件
+//第一种 函数组件
+    /*function Person(props){
+     return (
+         <ul>
+             <li>{props.name}</li>
+             <li>{props.age}</li>
+             <li>{props.sex}</li>
+         </ul>
+     )
+    }*/
+
+//第二种 类组件
+    class Person extends React.Component{
+        render(){
+            return (
+                <ul>
+                    <li>{this.props.name}</li>
+                    <li>{this.props.age}</li>
+                    <li>{this.props.sex}</li>
+                </ul>
+            )
+        }
+    }
+
+    //指定属性默认值
+    Person.defaultProps={
+        sex:'男',
+        age:23
+    }
+
+    //创建Person值
+    var person1={
+        name:"zjm",
+        age:21,
+        sex:"男",
+    }
+    var person2={
+        name:"k",
+    }
+
+//   指定属性的类型和验证
+    Person.propTypes={
+        name:PropTypes.string.isRequired,
+        age:PropTypes.number,
+        sex:PropTypes.string
+    }
+
+
+
+//    渲染组件
+    ReactDOM.render(<Person name={person1.name} age={person1.age} sex={person1.sex}/>,document.getElementById('example1'));
+    ReactDOM.render(<Person name={person2.name}/>,document.getElementById("example2"));
+
+</script>
+</html>
